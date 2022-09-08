@@ -5,24 +5,22 @@ import { Dish } from '../shared/dish';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-
   dishes!: Dish[];
 
   selectedDish!: Dish;
 
-  constructor(
-   private dishService: DishService
-  ) { }
+  constructor(private dishService: DishService) {}
 
   ngOnInit(): void {
-    this.dishes = this.dishService.getDishes();
+    this.dishService.getDishes().then((dishes) => {
+      this.dishes = dishes;
+    });
   }
 
-  onSelected(dish: Dish){
+  onSelected(dish: Dish) {
     this.selectedDish = dish;
   }
-
 }
