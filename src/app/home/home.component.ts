@@ -14,9 +14,9 @@ import { Leader } from '../shared/leader';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-  dish!: Dish;
-  promotion!: Promotion;
-  leader!: Leader;
+  dish: Dish | undefined;
+  promotion: Promotion | undefined;
+  leader: Leader | undefined;
 
   constructor(
     private dishService: DishService,
@@ -25,12 +25,12 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dishService.getFeaturedDish().then((dish) => (this.dish = dish));
+    this.dishService.getFeaturedDish().subscribe((dish) => (this.dish = dish));
     this.promotionService
       .getFeaturedPromotion()
-      .then((promotion) => (this.promotion = promotion));
+      .subscribe((promotion) => (this.promotion = promotion));
     this.leaderService
       .getFeaturedLeader()
-      .then((leader) => (this.leader = leader));
+      .subscribe((leader) => (this.leader = leader));
   }
 }

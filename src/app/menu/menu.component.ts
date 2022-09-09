@@ -8,14 +8,14 @@ import { Dish } from '../shared/dish';
   styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-  dishes!: Dish[];
+  dishes: Dish[] | undefined;
 
-  selectedDish!: Dish;
+  selectedDish: Dish | undefined;
 
   constructor(private dishService: DishService) {}
 
   ngOnInit(): void {
-    this.dishService.getDishes().then((dishes) => {
+    this.dishService.getDishes().subscribe((dishes) => {
       this.dishes = dishes;
     });
   }

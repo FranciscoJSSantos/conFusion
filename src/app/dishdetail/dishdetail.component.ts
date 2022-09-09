@@ -10,7 +10,7 @@ import { Dish } from '../shared/dish';
   styleUrls: ['./dishdetail.component.scss'],
 })
 export class DishdetailComponent implements OnInit {
-  dish!: Dish;
+  dish: Dish | undefined;
 
   constructor(
     private dishService: DishService,
@@ -20,7 +20,7 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.route.snapshot.params['id'];
-    this.dishService.getDish(id).then((dish) => (this.dish = dish));
+    this.dishService.getDish(id).subscribe((dish) => (this.dish = dish));
   }
 
   goBack(): void {
