@@ -18,6 +18,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import 'hammerjs';
 import { AboutComponent } from './about/about.component';
@@ -64,6 +65,7 @@ import { LeaderService } from './services/leader.service';
     MatSelectModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
+    MatSliderModule,
   ],
   entryComponents: [LoginComponent],
   providers: [DishService, PromotionService, LeaderService],
