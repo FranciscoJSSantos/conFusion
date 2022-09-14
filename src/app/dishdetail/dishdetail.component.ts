@@ -14,6 +14,7 @@ import { Dish } from '../shared/dish';
 })
 export class DishdetailComponent implements OnInit {
   dish: Dish | undefined;
+  errMess?: string;
   dishIds: string[] | any;
   prev: string | undefined;
   next: string | undefined;
@@ -61,7 +62,7 @@ export class DishdetailComponent implements OnInit {
       .subscribe((dish: any) => {
         this.dish = dish;
         this.setPrevNext(dish.id);
-      });
+      }, errmess => this.errMess = errmess);
   }
 
   createForm() {
