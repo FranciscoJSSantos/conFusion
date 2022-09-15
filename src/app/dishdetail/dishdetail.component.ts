@@ -13,13 +13,15 @@ import { Dish } from '../shared/dish';
   styleUrls: ['./dishdetail.component.scss'],
 })
 export class DishdetailComponent implements OnInit {
-  dish: Dish | undefined;
+  dish: Dish | any;
   errMess?: string;
   dishIds: string[] | any;
   prev: string | undefined;
   next: string | undefined;
   commentForm!: FormGroup;
   comment!: Comment;
+
+  dishcopy?: Dish | any;
 
   @ViewChild('fform') commentFormDirective: any;
 
@@ -59,10 +61,14 @@ export class DishdetailComponent implements OnInit {
       .pipe(
         switchMap((params: Params) => this.dishService.getDish(params['id']))
       )
-      .subscribe((dish: any) => {
-        this.dish = dish;
-        this.setPrevNext(dish.id);
-      }, errmess => this.errMess = errmess);
+      .subscribe(
+        (dish: any) => {
+          this.dish = dish;
+          this.dishcopy = dish;
+          this.setPrevNext(dish.id);
+        },
+        (errmess) => (this.errMess = errmess)
+      );
   }
 
   createForm() {
@@ -108,7 +114,18 @@ export class DishdetailComponent implements OnInit {
 
     this.comment.date = date;
     console.log(this.comment);
-    this.dish?.comments.push(this.comment);
+    this.dishcopy?.comments.push(this.comment);
+    this.dishService.putDish(this.dishcopy).subscribe(
+      (dish) => {
+        this.dish = dish;
+        this.dishcopy = dish;
+      },
+      (errmess) => {
+        this.dish = null;
+        this.dishcopy = null;
+        this.errMess = errmess;
+      }
+    );
     this.commentFormDirective.resetForm();
     this.commentForm.reset({
       author: '',
