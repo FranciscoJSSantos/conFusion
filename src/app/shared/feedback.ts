@@ -1,6 +1,7 @@
 export class Feedback {
+  id!: string;
   firstname!: string;
-  lasname!: string;
+  lastname!: string;
   telnum!: number;
   email!: string;
   agree!: boolean;
